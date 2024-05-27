@@ -1,0 +1,346 @@
+.item-arrangement {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+}
+.lg-sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  min-width: 200px;
+  width: 20%;
+  height: 100vh;
+}
+.sample {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+}
+.nxtWatch-logo {
+  height: 40px;
+  width: 150px;
+}
+.Links {
+  color: black;
+  text-decoration: none;
+}
+.home {
+  font-size: 22px;
+  margin-bottom: 5px;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 5px;
+}
+.icon {
+  margin-right: 10px;
+}
+.contact {
+  padding-left: 10px;
+  font-weight: 500;
+  margin-top: auto;
+}
+.facebook {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+.nav-section {
+  width: 80%;
+  max-width: 3200px;
+  display: flex;
+  flex-direction: column;
+}
+.profile-img {
+  height: 30px;
+  width: 30px;
+  margin-right: 20px;
+}
+.moon {
+  font-size: 30px;
+  margin-right: 20px;
+}
+.sm-moon-light-theme {
+  font-size: 25px;
+  margin-right: 18px;
+}
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+  padding-right: 10px;
+  height: 50px;
+  display: flex;
+  margin-bottom: 10px;
+
+  align-items: center;
+}
+.logout {
+  background-color: white;
+  width: 80px;
+  height: 25px;
+  pad: 10px;
+  outline: none;
+  border-width: 1px;
+  cursor: pointer;
+  border-style: solid;
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+.get {
+  background-color: white;
+  width: 100px;
+  height: 25px;
+  pad: 10px;
+  outline: none;
+  border-width: 1px;
+  cursor: pointer;
+  border-style: solid;
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-image: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
+  height: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 20px;
+}
+.x {
+  display: flex;
+  align-items: flex-start;
+}
+.btnn {
+  outline: none;
+  background-color: white;
+  border-width: 0px;
+  margin-left: auto;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.sm-logout {
+  margin-right: 1px;
+  background-color: white;
+  outline: none;
+  cursor: pointer;
+  border-width: 0px;
+}
+.input-css {
+  width: 50%;
+  min-width: 300px;
+  margin-left: 10px;
+  height: 30px;
+}
+.main-part {
+  background-color: #f8fafc;
+  height: auto;
+  width: 100%;
+  padding: 20px;
+}
+.search-btn {
+  border-width: 0px;
+  outline: none;
+  background-color: #f8fafc;
+  height: 30px;
+  text-align: center;
+  font-size: 18px;
+  cursor: pointer;
+}
+.ul-divs {
+  width: 100%;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+}
+.list-container {
+  width: 30%;
+  height: auto;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  margin-right: 15px;
+}
+.thumbnail {
+  height: 200px;
+  width: 100%;
+}
+.profile {
+  height: 50px;
+  width: 50px;
+  padding-left: 10px;
+  padding-right: 5px;
+}
+.video-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.video-flex-para {
+  display: flex;
+  flex-direction: column;
+  padding-right: 1px;
+}
+.title {
+  font-size: 14px;
+}
+.name {
+  margin-top: -5px;
+  margin-right: 5px;
+}
+.li-st {
+  list-style-type: circle !important;
+}
+.show-none {
+  display: none;
+}
+.sm-navbar {
+  padding: 10px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.nxtWatch-sm-logo {
+  height: 30px;
+  width: 120px;
+}
+
+/* EXTRA SMALL DEVICES */
+
+@media screen and (max-width: 576px) {
+  .item-arrangement {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+  }
+
+  .ul-divs {
+    width: 100%;
+    list-style-type: none;
+  }
+  .list-container {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+
+    cursor: pointer;
+    margin-right: 0px;
+  }
+  .thumbnail {
+    height: 180px;
+    width: 100vw;
+    margin-left: -40px;
+  }
+  .input-css {
+    width: 80%;
+    min-width: 0px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+
+    height: 30px;
+  }
+  .nav-section {
+    width: 100%;
+    min-width: 0px;
+  }
+  .main-part {
+    background-color: #f8fafc;
+    height: auto;
+    width: 100%;
+    padding: 0px;
+  }
+  .profile {
+    padding-left: 0px;
+    margin-left: -10px;
+  }
+  .title {
+    font-size: 12px;
+  }
+  .sm-moon-light-theme {
+    font-size: 18px;
+    margin-right: 12px;
+  }
+  .nxtWatch-sm-logo {
+    height: 22px;
+    width: 120px;
+  }
+}
+
+/*  SMALL DEVICES */
+
+/*  MEDIUM DEVICES */
+@media screen and (min-width: 577px) and (max-width: 768px) {
+  .main-part {
+    background-color: #f8fafc;
+    height: auto;
+    width: 100%;
+    padding: 0px;
+  }
+  .home {
+    font-size: 18px;
+  }
+  .input-css {
+    width: 80%;
+    min-width: 200px;
+    margin-left: 10px;
+    height: 30px;
+  }
+
+  .ul-divs {
+    width: 100%;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .list-container {
+    width: 45%;
+    height: auto;
+    min-width: 45%;
+    margin-bottom: 20px;
+    cursor: pointer;
+    margin-left: -10px;
+    margin-right: 20px;
+  }
+  .thumbnail {
+    height: 200px;
+    width: 100%;
+  }
+  .title {
+    font-size: 12px;
+  }
+}
+
+/* EXTRA SMALL AND SMALL DEVICES */
+@media screen and (max-width: 576px) {
+  .item-arrangement {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+  }
+  .lg-sidebar {
+    display: none;
+    padding: 0px;
+  }
+  .navbar {
+    display: none;
+  }
+  .logout {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 577px) {
+  .sm-navbar {
+    display: none;
+  }
+}
