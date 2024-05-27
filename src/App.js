@@ -22,6 +22,7 @@ class App extends Component {
 
   render() {
     const {darkMode, premiumDisplay} = this.state
+
     return (
       <NxtwatchContext.Provider
         value={{

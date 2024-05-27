@@ -25,7 +25,6 @@ class Home extends Component {
 
     searched: '',
     apiStatus: apiStatusConstants.initial,
-    premiumDisplay: true,
   }
 
   componentDidMount() {
@@ -82,203 +81,237 @@ class Home extends Component {
     this.HomeApiCall()
   }
 
-  closePremiumFunc = () => {}
-
   logoutFunc = () => {
     const {history} = this.props
     Cookies.remove('jwt_token')
     history.replace('/login')
   }
 
-  renderBanner = () => (
+  omSuccesview = () => (
     <NxtwatchContext.Consumer>
       {value => {
-        const {darkMode, premiumDisplay} = value
-        console.log
+        const {premiumDisplay, darkMode, closePremium} = value
+        console.log(premiumDisplay)
       }}
     </NxtwatchContext.Consumer>
   )
 
   render() {
-    const {HomeYtList, searched, premiumDisplay} = this.state
-
-    const {id, publishedAt} = HomeYtList
-
-    const isClicked = premiumDisplay ? 'flex-row' : 'show-none'
-
     return (
-      <>
-        <div className="item-arrangement">
-          <div className="lg-sidebar">
-            <img
-              className="nxtWatch-logo"
-              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-              alt="website logo"
-            />
-            {/* ICONS */}
+      <NxtwatchContext.Consumer>
+        {value => {
+          const {HomeYtList, searched} = this.state
 
-            <div style={{marginTop: '50px'}}>
-              <div className="home">
-                <Link onClick={this.onClickHome} className="Links" to="/">
-                  <IoHomeOutline className="icon" />
-                  Home
-                </Link>
-              </div>
-              <div className="home">
-                <Link className="Links" to="/trending">
-                  <FaFire className="icon" />
-                  Trending
-                </Link>
-              </div>
-              <div className="home">
-                <Link className="Links" to="/gaming">
-                  <GiConsoleController className="icon" />
-                  Gaming
-                </Link>
-              </div>
-              <div className="home">
-                <Link className="Links" to="/saved-videos">
-                  <RiPlayListAddLine className="icon" />
-                  Saved videos
-                </Link>
-              </div>
-            </div>
+          const {id, publishedAt} = HomeYtList
+          const {premiumDisplay, darkMode, closePremium} = value
 
-            {/* ICONS COMPLETED */}
+          const isClicked = premiumDisplay ? 'flex-row' : 'show-none'
 
-            <div className="contact">
-              <p>CONTACT US</p>
-              <div>
-                <img
-                  className="facebook"
-                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png "
-                  alt="facebook logo"
-                />
-                <img
-                  className="facebook"
-                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png "
-                  alt="twitter logo"
-                />
-                <img
-                  className="facebook"
-                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png "
-                  alt="linked in logo"
-                />
-              </div>
-              <p>Enjoy! Now to see your channels and recommendations!</p>
-            </div>
-          </div>
-          {/* SIDEBAR COMPLETED */}
-          <div className="nav-section">
-            <div className="navbar">
-              <FaMoon className="moon" />
-              <img
-                className="profile-img"
-                src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png "
-                alt="profile"
-              />
-              <button
-                onClick={this.logoutFunc}
-                type="button"
-                className="logout"
-              >
-                Logout
-              </button>
-            </div>
-            {/* SMALL DEVICES NAVBAR */}
-            <div className="sm-navbar">
-              <img
-                className="nxtWatch-sm-logo"
-                src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                alt="website logo"
-              />
-              <div>
-                <button
-                  type="button"
-                  aria-label="theme-Changer"
-                  className="sm-logout"
-                >
-                  <FaMoon className="sm-moon-light-theme" />
-                </button>
-                <FaAlignJustify className="sm-moon-light-theme" />
-                <button
-                  onClick={this.logoutFunc}
-                  aria-label="logout"
-                  type="button"
-                  className="sm-logout"
-                >
-                  <IoIosLogOut className="sm-moon-light-theme" />
-                </button>
-              </div>
-            </div>
-            {/* BANNER */}
+          return (
+            <>
+              <div className="item-arrangement">
+                <div className="lg-sidebar">
+                  <img
+                    className="nxtWatch-logo"
+                    src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+                    alt="website logo"
+                  />
 
-            {/* ul div */}
-            <div className="main-part">
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  marginTop: '22px',
-                  marginLeft: '30px',
-                  marginBottom: '5px',
-                }}
-              >
-                <input
-                  onChange={this.searchCapture}
-                  placeholder="search"
-                  value={searched}
-                  className="input-css"
-                  type="search"
-                />
-                <button
-                  className="search-btn"
-                  aria-label="search"
-                  type="button"
-                  onClick={this.searchFunc}
-                >
-                  <FaSearch />
-                </button>
-              </div>
-              <ul className="ul-divs">
-                {HomeYtList.map(video => {
-                  const dateString = format(
-                    new Date(video.publishedAt),
-                    'dd-MM-yyyy',
-                  )
-                  const distance = formatDistanceToNow(
-                    new Date(video.publishedAt),
-                  )
-                  return (
-                    <li className="list-container" key={video.id}>
+                  {/* ICONS */}
+
+                  <div style={{marginTop: '50px'}}>
+                    <div className="home">
+                      <Link onClick={this.onClickHome} className="Links" to="/">
+                        <IoHomeOutline className="icon" />
+                        Home
+                      </Link>
+                    </div>
+                    <div className="home">
+                      <Link className="Links" to="/trending">
+                        <FaFire className="icon" />
+                        Trending
+                      </Link>
+                    </div>
+                    <div className="home">
+                      <Link className="Links" to="/gaming">
+                        <GiConsoleController className="icon" />
+                        Gaming
+                      </Link>
+                    </div>
+                    <div className="home">
+                      <Link className="Links" to="/saved-videos">
+                        <RiPlayListAddLine className="icon" />
+                        Saved videos
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* ICONS COMPLETED */}
+
+                  <div className="contact">
+                    <p>CONTACT US</p>
+                    <div>
                       <img
-                        alt="thumbnail"
-                        className="thumbnail"
-                        src={video.thumbnail}
+                        className="facebook"
+                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png "
+                        alt="facebook logo"
                       />
-                      <div className="video-details">
-                        <img
-                          alt="profile"
-                          className="profile"
-                          src={video.profileImg}
-                        />
-                        <div className="video-flex-para">
-                          <p className="title">{video.title}</p>
-                          <p className="title name">{video.name}</p>
-                          <div style={{display: 'flex', flexDirection: 'row'}}>
-                            <p className="title name">{`${video.views} views`}</p>
-                            <p className="title name li-st">{distance}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </>
+                      <img
+                        className="facebook"
+                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png "
+                        alt="twitter logo"
+                      />
+                      <img
+                        className="facebook"
+                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png "
+                        alt="linked in logo"
+                      />
+                    </div>
+                    <p>Enjoy! Now to see your channels and recommendations!</p>
+                  </div>
+                </div>
+                {/* SIDEBAR COMPLETED */}
+                <div className="nav-section">
+                  <div className="navbar">
+                    <FaMoon className="moon" />
+                    <img
+                      className="profile-img"
+                      src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png "
+                      alt="profile"
+                    />
+                    <button
+                      onClick={this.logoutFunc}
+                      type="button"
+                      className="logout"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                  {/* SMALL DEVICES NAVBAR */}
+                  <div className="sm-navbar">
+                    <img
+                      className="nxtWatch-sm-logo"
+                      src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+                      alt="website logo"
+                    />
+                    <div>
+                      <button
+                        type="button"
+                        aria-label="theme-Changer"
+                        className="sm-logout"
+                      >
+                        <FaMoon className="sm-moon-light-theme" />
+                      </button>
+                      <FaAlignJustify className="sm-moon-light-theme" />
+                      <button
+                        onClick={this.logoutFunc}
+                        aria-label="logout"
+                        type="button"
+                        className="sm-logout"
+                      >
+                        <IoIosLogOut className="sm-moon-light-theme" />
+                      </button>
+                    </div>
+                  </div>
+                  {/* BANNER */}
+                  <div className={`${isClicked}`}>
+                    <div className="banner">
+                      <img
+                        height="40px"
+                        width="150px"
+                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+                        alt="website logo"
+                      />
+                      <p>Buy Nxt Watch Premium prepaid plains with upi</p>
+                      <button type="button" className="get">
+                        GET IT NOW
+                      </button>
+                    </div>
+                    <div className="x">
+                      <button
+                        onClick={closePremium}
+                        className="btnn"
+                        type="button"
+                      >
+                        X
+                      </button>
+                      {this.omSuccesview()}
+                    </div>
+                  </div>
+                  {/* ul div */}
+                  <div className="main-part">
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        marginTop: '22px',
+                        marginLeft: '30px',
+                        marginBottom: '5px',
+                      }}
+                    >
+                      <input
+                        onChange={this.searchCapture}
+                        placeholder="search"
+                        value={searched}
+                        className="input-css"
+                        type="search"
+                      />
+                      <button
+                        className="search-btn"
+                        aria-label="search"
+                        type="button"
+                        onClick={this.searchFunc}
+                      >
+                        <FaSearch />
+                      </button>
+                    </div>
+                    <ul className="ul-divs">
+                      {HomeYtList.map(video => {
+                        const dateString = format(
+                          new Date(video.publishedAt),
+                          'dd-MM-yyyy',
+                        )
+                        const distance = formatDistanceToNow(
+                          new Date(video.publishedAt),
+                        )
+                        return (
+                          <li className="list-container" key={video.id}>
+                            <img
+                              alt="thumbnail"
+                              className="thumbnail"
+                              src={video.thumbnail}
+                            />
+                            <div className="video-details">
+                              <img
+                                alt="profile"
+                                className="profile"
+                                src={video.profileImg}
+                              />
+                              <div className="video-flex-para">
+                                <p className="title">{video.title}</p>
+                                <p className="title name">{video.name}</p>
+                                <div
+                                  style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                  }}
+                                >
+                                  <p className="title name">{`${video.views} views`}</p>
+                                  <p className="title name li-st">{distance}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </>
+          )
+        }}
+      </NxtwatchContext.Consumer>
     )
   }
 }
