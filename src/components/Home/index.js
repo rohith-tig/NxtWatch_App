@@ -1,4 +1,5 @@
 import {Component} from 'react'
+
 import Cookies from 'js-cookie'
 import {Link} from 'react-router-dom'
 import {IoHomeOutline} from 'react-icons/io5'
@@ -7,6 +8,7 @@ import {GiConsoleController} from 'react-icons/gi'
 import {RiPlayListAddLine} from 'react-icons/ri'
 import {format, formatDistanceToNow} from 'date-fns'
 import {IoIosLogOut} from 'react-icons/io'
+import NxtwatchContext from '../../context/NxtwatchContext'
 
 import './index.css'
 
@@ -80,17 +82,22 @@ class Home extends Component {
     this.HomeApiCall()
   }
 
-  closePremium = () => {
-    this.setState(prevState => ({
-      premiumDisplay: !prevState.premiumDisplay,
-    }))
-  }
+  closePremiumFunc = () => {}
 
   logoutFunc = () => {
     const {history} = this.props
     Cookies.remove('jwt_token')
     history.replace('/login')
   }
+
+  renderBanner = () => (
+    <NxtwatchContext.Consumer>
+      {value => {
+        const {darkMode, premiumDisplay} = value
+        console.log
+      }}
+    </NxtwatchContext.Consumer>
+  )
 
   render() {
     const {HomeYtList, searched, premiumDisplay} = this.state
@@ -205,29 +212,7 @@ class Home extends Component {
               </div>
             </div>
             {/* BANNER */}
-            <div className={`${isClicked}`}>
-              <div className="banner">
-                <img
-                  height="40px"
-                  width="150px"
-                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                  alt="website logo"
-                />
-                <p>Buy Nxt Watch Premium prepaid plains with upi</p>
-                <button type="button" className="get">
-                  GET IT NOW
-                </button>
-              </div>
-              <div className="x">
-                <button
-                  onClick={this.closePremium}
-                  className="btnn"
-                  type="button"
-                >
-                  X
-                </button>
-              </div>
-            </div>
+
             {/* ul div */}
             <div className="main-part">
               <div
