@@ -4,6 +4,7 @@ const NxtWatchContext = React.createContext({
   darkMode: false,
   premiumDisplay: true,
   closePremium: () => {},
+  darkModeFunc: () => {},
 })
 
 export default NxtWatchContext

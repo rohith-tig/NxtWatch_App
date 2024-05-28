@@ -1,14 +1,13 @@
 import {Component} from 'react'
 
 import Cookies from 'js-cookie'
-import {Link} from 'react-router-dom'
-import {IoHomeOutline} from 'react-icons/io5'
-import {FaFire, FaAlignJustify, FaMoon, FaSearch} from 'react-icons/fa'
-import {GiConsoleController} from 'react-icons/gi'
-import {RiPlayListAddLine} from 'react-icons/ri'
+import {FaSearch} from 'react-icons/fa'
 import {format, formatDistanceToNow} from 'date-fns'
-import {IoIosLogOut} from 'react-icons/io'
+import Loader from 'react-loader-spinner'
+
 import NxtwatchContext from '../../context/NxtwatchContext'
+import Sidebar from '../Sidebar'
+import Navbar from '../Navbar'
 
 import './index.css'
 
@@ -44,7 +43,7 @@ class Home extends Component {
     const {searched} = this.state
 
     const jwtToken = Cookies.get('jwt_token')
-    const url = `https://apis.ccbp.in/videos/all?search=${searched}`
+    const url = `https://apis.ccbp.in/videos/all/?search=${searched}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -71,149 +70,185 @@ class Home extends Component {
         apiStatus: apiStatusConstants.success,
       })
     }
+    if (response.status === 404) {
+      this.setState({
+        apiStatus: apiStatusConstants.failure,
+      })
+    }
   }
 
   searchFunc = () => {
     this.HomeApiCall()
   }
 
-  onClickHome = () => {
+  retryFunc = () => {
     this.HomeApiCall()
   }
 
-  logoutFunc = () => {
-    const {history} = this.props
-    Cookies.remove('jwt_token')
-    history.replace('/login')
-  }
-
-  omSuccesview = () => (
+  renderSuccessView = () => (
     <NxtwatchContext.Consumer>
       {value => {
-        const {premiumDisplay, darkMode, closePremium} = value
-        console.log(premiumDisplay)
+        const {darkMode} = value
+        const {HomeYtList, searched} = this.state
+        const zeroListLength = HomeYtList.length === 0
+        const mainPartBg = darkMode
+          ? 'main-dark-light-bg'
+          : 'main-part-light-bg'
+        const videoParaColor = darkMode ? 'ib-hubs-dark' : 'ib-hubs-light'
+        const titleColor = darkMode ? 'dark-title' : null
+        return (
+          <div className={`main-part ${mainPartBg}`}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginTop: '22px',
+                marginLeft: '30px',
+                marginBottom: '5px',
+              }}
+            >
+              <input
+                onChange={this.searchCapture}
+                placeholder="search"
+                value={searched}
+                className="input-css"
+                type="search"
+              />
+              <button
+                className="search-btn"
+                aria-label="search"
+                type="button"
+                onClick={this.searchFunc}
+              >
+                <FaSearch />
+              </button>
+            </div>
+
+            {zeroListLength ? (
+              <div className="random-search">
+                <img
+                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
+                  alt="no-search-results-img"
+                  className="no-search-img"
+                />
+                <h1>No Search results found</h1>
+                <p>Try different Key words or remove search filter</p>
+                <button type="button" onClick={this.retryFunc}>
+                  Retry
+                </button>
+              </div>
+            ) : (
+              <ul className="ul-divs">
+                {HomeYtList.map(video => {
+                  const dateString = format(
+                    new Date(video.publishedAt),
+                    'dd-MM-yyyy',
+                  )
+                  const distance = formatDistanceToNow(
+                    new Date(video.publishedAt),
+                  )
+                  return (
+                    <li className="list-container" key={video.id}>
+                      <img
+                        alt="thumbnail"
+                        className="thumbnail"
+                        src={video.thumbnail}
+                      />
+                      <div className="video-details">
+                        <img
+                          alt="profile"
+                          className="profile"
+                          src={video.profileImg}
+                        />
+                        <div className="video-flex-para">
+                          <p className={`title ${titleColor}`}>{video.title}</p>
+                          <p className={`title name ${videoParaColor}`}>
+                            {video.name}
+                          </p>
+                          <div
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'row',
+                            }}
+                          >
+                            <p
+                              className={`title name ${videoParaColor}`}
+                            >{`${video.views} views`}</p>
+                            <p className={`title name li-st ${videoParaColor}`}>
+                              {distance}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+          </div>
+        )
       }}
     </NxtwatchContext.Consumer>
   )
+
+  renderLoadingView = () => (
+    <div className="products-details-loader-container" data-testid="loader">
+      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
+    </div>
+  )
+
+  renderFailureView = () => (
+    <>
+      <div className="main-part random-search">
+        <img
+          className="no-search-img"
+          alt="failure"
+          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+        />
+        <h1>Oops!Something Went Wrong</h1>
+        <p>
+          We are having some trouble to complete your request.Please try again
+        </p>
+        <button type="button">Retry</button>
+      </div>
+    </>
+  )
+
+  renderNxtWatchPage = () => {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusConstants.success:
+        return this.renderSuccessView()
+      case apiStatusConstants.failure:
+        return this.renderFailureView()
+      case apiStatusConstants.inProgress:
+        return this.renderLoadingView()
+      default:
+        return null
+    }
+  }
 
   render() {
     return (
       <NxtwatchContext.Consumer>
         {value => {
-          const {HomeYtList, searched} = this.state
-
+          const {HomeYtList} = this.state
+          // eslint-disable-next-line
           const {id, publishedAt} = HomeYtList
+
           const {premiumDisplay, darkMode, closePremium} = value
 
           const isClicked = premiumDisplay ? 'flex-row' : 'show-none'
+          const HomeDarkBg = darkMode ? 'home-dark-bg' : 'home-light-bg'
 
           return (
             <>
-              <div className="item-arrangement">
-                <div className="lg-sidebar">
-                  <img
-                    className="nxtWatch-logo"
-                    src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                    alt="website logo"
-                  />
+              <div className={`item-arrangement ${HomeDarkBg}`}>
+                <Sidebar />
 
-                  {/* ICONS */}
-
-                  <div style={{marginTop: '50px'}}>
-                    <div className="home">
-                      <Link onClick={this.onClickHome} className="Links" to="/">
-                        <IoHomeOutline className="icon" />
-                        Home
-                      </Link>
-                    </div>
-                    <div className="home">
-                      <Link className="Links" to="/trending">
-                        <FaFire className="icon" />
-                        Trending
-                      </Link>
-                    </div>
-                    <div className="home">
-                      <Link className="Links" to="/gaming">
-                        <GiConsoleController className="icon" />
-                        Gaming
-                      </Link>
-                    </div>
-                    <div className="home">
-                      <Link className="Links" to="/saved-videos">
-                        <RiPlayListAddLine className="icon" />
-                        Saved videos
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* ICONS COMPLETED */}
-
-                  <div className="contact">
-                    <p>CONTACT US</p>
-                    <div>
-                      <img
-                        className="facebook"
-                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png "
-                        alt="facebook logo"
-                      />
-                      <img
-                        className="facebook"
-                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png "
-                        alt="twitter logo"
-                      />
-                      <img
-                        className="facebook"
-                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png "
-                        alt="linked in logo"
-                      />
-                    </div>
-                    <p>Enjoy! Now to see your channels and recommendations!</p>
-                  </div>
-                </div>
-                {/* SIDEBAR COMPLETED */}
                 <div className="nav-section">
-                  <div className="navbar">
-                    <FaMoon className="moon" />
-                    <img
-                      className="profile-img"
-                      src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png "
-                      alt="profile"
-                    />
-                    <button
-                      onClick={this.logoutFunc}
-                      type="button"
-                      className="logout"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                  {/* SMALL DEVICES NAVBAR */}
-                  <div className="sm-navbar">
-                    <img
-                      className="nxtWatch-sm-logo"
-                      src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                      alt="website logo"
-                    />
-                    <div>
-                      <button
-                        type="button"
-                        aria-label="theme-Changer"
-                        className="sm-logout"
-                      >
-                        <FaMoon className="sm-moon-light-theme" />
-                      </button>
-                      <FaAlignJustify className="sm-moon-light-theme" />
-                      <button
-                        onClick={this.logoutFunc}
-                        aria-label="logout"
-                        type="button"
-                        className="sm-logout"
-                      >
-                        <IoIosLogOut className="sm-moon-light-theme" />
-                      </button>
-                    </div>
-                  </div>
-                  {/* BANNER */}
+                  <Navbar />
+
                   <div className={`${isClicked}`}>
                     <div className="banner">
                       <img
@@ -235,77 +270,10 @@ class Home extends Component {
                       >
                         X
                       </button>
-                      {this.omSuccesview()}
                     </div>
                   </div>
                   {/* ul div */}
-                  <div className="main-part">
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        marginTop: '22px',
-                        marginLeft: '30px',
-                        marginBottom: '5px',
-                      }}
-                    >
-                      <input
-                        onChange={this.searchCapture}
-                        placeholder="search"
-                        value={searched}
-                        className="input-css"
-                        type="search"
-                      />
-                      <button
-                        className="search-btn"
-                        aria-label="search"
-                        type="button"
-                        onClick={this.searchFunc}
-                      >
-                        <FaSearch />
-                      </button>
-                    </div>
-                    <ul className="ul-divs">
-                      {HomeYtList.map(video => {
-                        const dateString = format(
-                          new Date(video.publishedAt),
-                          'dd-MM-yyyy',
-                        )
-                        const distance = formatDistanceToNow(
-                          new Date(video.publishedAt),
-                        )
-                        return (
-                          <li className="list-container" key={video.id}>
-                            <img
-                              alt="thumbnail"
-                              className="thumbnail"
-                              src={video.thumbnail}
-                            />
-                            <div className="video-details">
-                              <img
-                                alt="profile"
-                                className="profile"
-                                src={video.profileImg}
-                              />
-                              <div className="video-flex-para">
-                                <p className="title">{video.title}</p>
-                                <p className="title name">{video.name}</p>
-                                <div
-                                  style={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                  }}
-                                >
-                                  <p className="title name">{`${video.views} views`}</p>
-                                  <p className="title name li-st">{distance}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </div>
+                  {this.renderNxtWatchPage()}
                 </div>
               </div>
             </>

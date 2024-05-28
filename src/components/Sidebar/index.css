@@ -1,0 +1,15 @@
+.home-dark-bg {
+  background-color: #181818;
+}
+.home-light-bg {
+  background-color: #f9f9f9;
+}
+
+.sidebar-dark-bg {
+  background-color: #212121;
+  color: white;
+}
+.sidebar-light-bg {
+  background-color: #ffffff;
+  color: black;
+}

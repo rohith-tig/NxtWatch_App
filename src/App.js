@@ -20,6 +20,13 @@ class App extends Component {
     }))
   }
 
+  darkModeFunc = () => {
+    this.setState(prevState => ({
+      darkMode: !prevState.darkMode,
+    }))
+    console.log('entered DarkMode')
+  }
+
   render() {
     const {darkMode, premiumDisplay} = this.state
 
@@ -29,6 +36,7 @@ class App extends Component {
           darkMode,
           premiumDisplay,
           closePremium: this.closePremium,
+          darkModeFunc: this.darkModeFunc,
         }}
       >
         <Switch>
