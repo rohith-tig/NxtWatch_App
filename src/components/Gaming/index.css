@@ -1,0 +1,143 @@
+.gaming-ul-divs {
+  width: 100%;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+}
+.gaming-list-container {
+  width: 30%;
+  height: auto;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  margin-right: 15px;
+}
+.gaming-thumbnail {
+  height: 300px;
+  width: 100%;
+}
+.video-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.gaming-video-flex-para {
+  display: flex;
+  flex-direction: column;
+  padding-right: 1px;
+  margin-left: 15px;
+}
+@media screen and (max-width: 320px) {
+  .gaming-ul-divs {
+    width: 100%;
+    list-style: none;
+  }
+  .gaming-list-container {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+
+    cursor: pointer;
+    margin-right: 0px;
+  }
+  .gaming-thumbnail {
+    height: 200px;
+    width: 100vw;
+    margin-left: -40px;
+  }
+  .gaming-video-flex-para {
+    margin-left: -20px;
+  }
+}
+@media screen and (min-width: 321px) and (max-width: 722px) {
+  .gaming-list-container {
+    width: 40%;
+    height: auto;
+    min-width: 40%;
+    margin-bottom: 20px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 10px;
+  }
+  .gaming-thumbnail {
+    height: 200px;
+    width: 100%;
+  }
+  .gaming-video-flex-para {
+    margin-left: 10px;
+  }
+}
+
+.gaming-ul-divs {
+  width: 100%;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+}
+.gaming-list-container {
+  width: 30%;
+  height: auto;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  margin-right: 15px;
+}
+.gaming-thumbnail {
+  height: 300px;
+  width: 100%;
+}
+.video-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.gaming-video-flex-para {
+  display: flex;
+  flex-direction: column;
+  padding-right: 1px;
+  margin-left: 15px;
+}
+@media screen and (max-width: 320px) {
+  .gaming-ul-divs {
+    width: 100%;
+    list-style: none;
+  }
+  .gaming-list-container {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+
+    cursor: pointer;
+    margin-right: 0px;
+  }
+  .gaming-thumbnail {
+    height: 200px;
+    width: 100vw;
+    margin-left: -40px;
+  }
+  .gaming-video-flex-para {
+    margin-left: -20px;
+  }
+}
+@media screen and (min-width: 321px) and (max-width: 722px) {
+  .gaming-list-container {
+    width: 40%;
+    height: auto;
+    min-width: 40%;
+    margin-bottom: 20px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 10px;
+  }
+  .gaming-thumbnail {
+    height: 200px;
+    width: 100%;
+  }
+  .gaming-video-flex-para {
+    margin-left: 10px;
+  }
+}

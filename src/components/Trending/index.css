@@ -1,0 +1,151 @@
+.trending-light-css {
+  display: flex;
+  flex-direction: row;
+  height: 130px;
+  align-items: center;
+  width: 100%;
+}
+
+.trending-light {
+  background-color: #f1f1f1;
+}
+
+.trending-dark-css {
+  background-color: #181818;
+  color: white;
+}
+
+.fire-light-css {
+  font-size: 30px;
+  background-color: #e1e9f0;
+  height: auto;
+  width: auto;
+  padding: 18px;
+  border-radius: 40px;
+  margin-left: 30px;
+  margin-right: 30px;
+  color: red;
+}
+
+.fire-dark-bg {
+  background-color: #0f0f0f;
+}
+
+.main-part-light-bg {
+  background-color: #f8fafc;
+}
+
+.main-dark-light-bg {
+  background-color: #0f0f0f;
+}
+
+.trending-ul-divs {
+  width: 100%;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.trending-list-container {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+}
+
+.trending-thumbnail {
+  height: 200px;
+  width: 50%;
+}
+
+.trending-profile {
+  height: 50px;
+  width: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.trending-video-details {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  align-items: center;
+}
+
+.trending-video-flex-para {
+  display: flex;
+  flex-direction: column;
+  padding-right: 1px;
+}
+
+.trending-title {
+  font-size: 14px;
+}
+
+.name {
+  margin-top: -5px;
+  margin-right: 5px;
+}
+
+.li-st {
+  list-style-type: circle !important;
+}
+
+@media screen and (max-width: 576px) {
+  .trending-light-css {
+    padding-top: 3px;
+    padding-bottom: 6px;
+    height: 87px;
+  }
+  .trending-main-part {
+    height: auto;
+    width: 100%;
+    padding: 0px;
+  }
+  .trending-ul-divs {
+    width: 100vw;
+    list-style-type: none;
+  }
+
+  .trending-list-container {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+
+  .trending-thumbnail {
+    height: 180px;
+    width: 100vw;
+    margin-left: -40px;
+  }
+
+  .trending-video-details {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    margin-left: -40px;
+  }
+
+  .fire-light-css {
+    font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 577px) and (max-width: 768px) {
+  .trending-title {
+    font-size: 13px;
+  }
+
+  .trending-profile {
+    height: 40px;
+    width: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}

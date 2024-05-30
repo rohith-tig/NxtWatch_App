@@ -1,14 +1,12 @@
 import {Component} from 'react'
 
 import Cookies from 'js-cookie'
-import {FaSearch} from 'react-icons/fa'
-import {formatDistanceToNow} from 'date-fns'
-import Loader from 'react-loader-spinner'
 
+import {GiConsoleController} from 'react-icons/gi'
+import Loader from 'react-loader-spinner'
 import NxtwatchContext from '../../context/NxtwatchContext'
 import Sidebar from '../Sidebar'
 import Navbar from '../Navbar'
-
 import './index.css'
 
 const apiStatusConstants = {
@@ -18,32 +16,24 @@ const apiStatusConstants = {
   inProgress: 'IN_PROGRESS',
 }
 
-class Home extends Component {
+class Gaming extends Component {
   state = {
-    HomeYtList: [],
+    GamingYtList: [],
 
-    searched: '',
     apiStatus: apiStatusConstants.initial,
   }
 
   componentDidMount() {
-    this.HomeApiCall()
+    this.GamingApiCall()
   }
 
-  searchCapture = event => {
-    this.setState({
-      searched: event.target.value,
-    })
-  }
-
-  HomeApiCall = async () => {
+  GamingApiCall = async () => {
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
     })
-    const {searched} = this.state
 
     const jwtToken = Cookies.get('jwt_token')
-    const url = `https://apis.ccbp.in/videos/all/?search=${searched}`
+    const url = 'https://apis.ccbp.in/videos/gaming'
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -57,134 +47,67 @@ class Home extends Component {
       console.log(data)
       const videoInfo = data.videos.map(item => ({
         id: item.id,
-        publishedAt: new Date(item.published_at),
+
         thumbnail: item.thumbnail_url,
         title: item.title,
         views: item.view_count,
-        name: item.channel.name,
-        profileImg: item.channel.profile_image_url,
       }))
       console.log(videoInfo)
       this.setState({
-        HomeYtList: videoInfo,
+        GamingYtList: videoInfo,
         apiStatus: apiStatusConstants.success,
       })
-    }
-    if (response.status === 404) {
+    } else {
       this.setState({
         apiStatus: apiStatusConstants.failure,
       })
     }
   }
 
-  searchFunc = () => {
-    this.HomeApiCall()
-  }
-
-  retryFunc = () => {
-    this.HomeApiCall()
-  }
-
   renderSuccessView = () => (
     <NxtwatchContext.Consumer>
       {value => {
         const {darkMode} = value
-        const {HomeYtList, searched} = this.state
-        const zeroListLength = HomeYtList.length === 0
+        const {GamingYtList} = this.state
+
         const mainPartBg = darkMode
           ? 'main-dark-light-bg'
           : 'main-part-light-bg'
         const videoParaColor = darkMode ? 'ib-hubs-dark' : 'ib-hubs-light'
         const titleColor = darkMode ? 'dark-title' : null
+
         return (
           <div className={`main-part ${mainPartBg}`}>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginTop: '22px',
-                marginLeft: '30px',
-                marginBottom: '5px',
-              }}
-            >
-              <input
-                onChange={this.searchCapture}
-                placeholder="search"
-                value={searched}
-                className={
-                  darkMode ? 'input-css dark-input' : 'input-css light-input'
-                }
-                type="search"
-              />
-              <button
-                className={
-                  darkMode ? 'search-btn dark-search-button' : 'search-btn'
-                }
-                aria-label="search"
-                type="button"
-                onClick={this.searchFunc}
-              >
-                <FaSearch />
-              </button>
-            </div>
+            <ul className="gaming-ul-divs">
+              {GamingYtList.map(video => (
+                <li className="gaming-list-container" key={video.id}>
+                  <img
+                    alt="thumbnail"
+                    className="gaming-thumbnail"
+                    src={video.thumbnail}
+                  />
+                  <div className="video-details">
+                    <div className="gaming-video-flex-para">
+                      <p className={`title ${titleColor}`}>{video.title}</p>
 
-            {zeroListLength ? (
-              <div className="random-search">
-                <img
-                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
-                  alt="no-search-results-img"
-                  className="no-search-img"
-                />
-                <h1>No Search results found</h1>
-                <p>Try different Key words or remove search filter</p>
-                <button type="button" onClick={this.retryFunc}>
-                  Retry
-                </button>
-              </div>
-            ) : (
-              <ul className="ul-divs">
-                {HomeYtList.map(video => {
-                  const distance = formatDistanceToNow(
-                    new Date(video.publishedAt),
-                  )
-                  return (
-                    <li className="list-container" key={video.id}>
-                      <img
-                        alt="thumbnail"
-                        className="thumbnail"
-                        src={video.thumbnail}
-                      />
-                      <div className="video-details">
-                        <img
-                          alt="profile"
-                          className="profile"
-                          src={video.profileImg}
-                        />
-                        <div className="video-flex-para">
-                          <p className={`title ${titleColor}`}>{video.title}</p>
-                          <p className={`title name ${videoParaColor}`}>
-                            {video.name}
-                          </p>
-                          <div
-                            style={{
-                              display: 'flex',
-                              flexDirection: 'row',
-                            }}
-                          >
-                            <p
-                              className={`title name ${videoParaColor}`}
-                            >{`${video.views} views`}</p>
-                            <p className={`title name li-st ${videoParaColor}`}>
-                              {distance}
-                            </p>
-                          </div>
-                        </div>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                        }}
+                      >
+                        <p
+                          className={`title name ${videoParaColor}`}
+                        >{`${video.views} views`}</p>
+                        <p className={`title name ${videoParaColor}`}>
+                          Worldwide
+                        </p>
                       </div>
-                    </li>
-                  )
-                })}
-              </ul>
-            )}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         )
       }}
@@ -232,15 +155,14 @@ class Home extends Component {
     return (
       <NxtwatchContext.Consumer>
         {value => {
-          const {HomeYtList} = this.state
           // eslint-disable-next-line
-          const {id, publishedAt} = HomeYtList
 
           const {premiumDisplay, darkMode, closePremium} = value
 
           const isClicked = premiumDisplay ? 'flex-row' : 'show-none'
           const HomeDarkBg = darkMode ? 'home-dark-bg' : 'home-light-bg'
-
+          const trendingBg = darkMode ? 'trending-dark-css' : 'trending-light'
+          const fireBg = darkMode ? 'fire-dark-bg' : null
           return (
             <>
               <div className={`item-arrangement ${HomeDarkBg}`}>
@@ -272,8 +194,15 @@ class Home extends Component {
                       </button>
                     </div>
                   </div>
-                  {/* ul div */}
+                  <div className={`trending-light-css ${trendingBg}`}>
+                    <GiConsoleController
+                      className={`fire-light-css ${fireBg}`}
+                    />
+                    <h1>Gaming</h1>
+                  </div>
                   {this.renderNxtWatchPage()}
+
+                  {/* ul div */}
                 </div>
               </div>
             </>
@@ -284,4 +213,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default Gaming

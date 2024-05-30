@@ -220,7 +220,7 @@
   height: 50px;
   width: 50px;
   padding-left: 10px;
-  padding-right: 5px;
+  margin-right: 10px;
 }
 .video-details {
   display: flex;
@@ -283,6 +283,16 @@
 .dark-title {
   color: white;
 }
+.dark-input {
+  background-color: black;
+  color: white;
+  outline-width: 0px;
+  border-width: 0px;
+}
+.dark-search-button {
+  background-color: black;
+  color: white;
+}
 
 /* EXTRA SMALL DEVICES */
 
@@ -331,7 +341,8 @@
   }
   .profile {
     padding-left: 0px;
-    margin-left: -10px;
+    margin-left: -20px;
+    margin-right: 10px;
   }
   .title {
     font-size: 12px;
@@ -379,7 +390,6 @@
 /*  MEDIUM DEVICES */
 @media screen and (min-width: 577px) and (max-width: 768px) {
   .main-part {
-    background-color: #f8fafc;
     height: auto;
     width: 100%;
     padding: 0px;
