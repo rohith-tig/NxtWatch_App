@@ -229,6 +229,7 @@
 }
 .video-flex-para {
   display: flex;
+  color: black;
   flex-direction: column;
   padding-right: 1px;
 }
@@ -292,6 +293,9 @@
 .dark-search-button {
   background-color: black;
   color: white;
+}
+.link-decoration {
+  text-decoration: none;
 }
 
 /* EXTRA SMALL DEVICES */

@@ -1,3 +1,14 @@
+.trending-item-arrangement {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+}
+.trending-nav-section {
+  width: 80%;
+  max-width: 3200px;
+  display: flex;
+  flex-direction: column;
+}
 .trending-light-css {
   display: flex;
   flex-direction: row;
@@ -5,7 +16,6 @@
   align-items: center;
   width: 100%;
 }
-
 .trending-light {
   background-color: #f1f1f1;
 }
@@ -38,59 +48,41 @@
 .main-dark-light-bg {
   background-color: #0f0f0f;
 }
-
+.trending-main-part {
+  width: 100%;
+  padding: 20px;
+  height: auto;
+}
 .trending-ul-divs {
   width: 100%;
   list-style-type: none;
   display: flex;
   flex-direction: column;
 }
-
 .trending-list-container {
   width: 100%;
-  height: auto;
-  margin-bottom: 20px;
-  cursor: pointer;
   display: flex;
   flex-direction: row;
-}
+  height: auto;
+  margin-bottom: 20px;
 
+  cursor: pointer;
+}
 .trending-thumbnail {
-  height: 200px;
   width: 50%;
 }
-
-.trending-profile {
-  height: 50px;
-  width: 50px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
 .trending-video-details {
   display: flex;
   flex-direction: row;
   width: 50%;
   align-items: center;
+  color: black;
 }
-
-.trending-video-flex-para {
-  display: flex;
-  flex-direction: column;
-  padding-right: 1px;
-}
-
-.trending-title {
-  font-size: 14px;
-}
-
-.name {
-  margin-top: -5px;
-  margin-right: 5px;
-}
-
-.li-st {
-  list-style-type: circle !important;
+.trending-profile {
+  height: 50px;
+  width: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 @media screen and (max-width: 576px) {

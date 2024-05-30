@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 
 import {GiConsoleController} from 'react-icons/gi'
 import Loader from 'react-loader-spinner'
+import {Link} from 'react-router-dom'
 import NxtwatchContext from '../../context/NxtwatchContext'
 import Sidebar from '../Sidebar'
 import Navbar from '../Navbar'
@@ -64,55 +65,63 @@ class Gaming extends Component {
     }
   }
 
-  renderSuccessView = () => (
-    <NxtwatchContext.Consumer>
-      {value => {
-        const {darkMode} = value
-        const {GamingYtList} = this.state
+  renderSuccessView = () => {
+    const {GamingYtList} = this.state
 
-        const mainPartBg = darkMode
-          ? 'main-dark-light-bg'
-          : 'main-part-light-bg'
-        const videoParaColor = darkMode ? 'ib-hubs-dark' : 'ib-hubs-light'
-        const titleColor = darkMode ? 'dark-title' : null
+    return (
+      <NxtwatchContext.Consumer>
+        {value => {
+          const {darkMode} = value
 
-        return (
-          <div className={`main-part ${mainPartBg}`}>
-            <ul className="gaming-ul-divs">
-              {GamingYtList.map(video => (
-                <li className="gaming-list-container" key={video.id}>
-                  <img
-                    alt="thumbnail"
-                    className="gaming-thumbnail"
-                    src={video.thumbnail}
-                  />
-                  <div className="video-details">
-                    <div className="gaming-video-flex-para">
-                      <p className={`title ${titleColor}`}>{video.title}</p>
+          const mainPartBg = darkMode
+            ? 'main-dark-light-bg'
+            : 'main-part-light-bg'
+          const videoParaColor = darkMode ? 'ib-hubs-dark' : 'ib-hubs-light'
+          const titleColor = darkMode ? 'dark-title' : null
 
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                        }}
-                      >
-                        <p
-                          className={`title name ${videoParaColor}`}
-                        >{`${video.views} views`}</p>
-                        <p className={`title name ${videoParaColor}`}>
-                          Worldwide
-                        </p>
+          return (
+            <div className={`main-part ${mainPartBg}`}>
+              <ul className="gaming-ul-divs">
+                {GamingYtList.map(video => (
+                  <li className="gaming-list-container" key={video.id}>
+                    <Link
+                      to={`/videos/${video.id}`}
+                      className="link-decoration"
+                    >
+                      <img
+                        alt="thumbnail"
+                        className="gaming-thumbnail"
+                        src={video.thumbnail}
+                      />
+                      <div className="video-details">
+                        <div className="gaming-video-flex-para">
+                          <p className={`title ${titleColor}`}>{video.title}</p>
+
+                          <div
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                            }}
+                          >
+                            <p
+                              className={`title name ${videoParaColor}`}
+                            >{`${video.views} views`}</p>
+                            <p className={`title name ${videoParaColor}`}>
+                              Worldwide
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )
-      }}
-    </NxtwatchContext.Consumer>
-  )
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }}
+      </NxtwatchContext.Consumer>
+    )
+  }
 
   renderLoadingView = () => (
     <div className="products-details-loader-container" data-testid="loader">

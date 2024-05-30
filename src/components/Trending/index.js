@@ -3,10 +3,11 @@ import {FaFire} from 'react-icons/fa'
 import Cookies from 'js-cookie'
 import {formatDistanceToNow} from 'date-fns'
 import Loader from 'react-loader-spinner'
+import {Link} from 'react-router-dom'
 import NxtwatchContext from '../../context/NxtwatchContext'
 import Sidebar from '../Sidebar'
 import Navbar from '../Navbar'
-import './index.css'
+import './trending.css'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -84,44 +85,53 @@ class Trending extends Component {
                   new Date(video.publishedAt),
                 )
                 return (
-                  <li className="trending-list-container" key={video.id}>
-                    <img
-                      alt="thumbnail"
-                      className="trending-thumbnail"
-                      src={video.thumbnail}
-                    />
-                    <div className="trending-video-details">
-                      <img
-                        alt="profile"
-                        className="trending-profile"
-                        src={video.profileImg}
-                      />
-                      <div className="trending-video-flex-para">
-                        <p className={`trending-title ${titleColor}`}>
-                          {video.title}
-                        </p>
-                        <p className={`trending-title name ${videoParaColor}`}>
-                          {video.name}
-                        </p>
-                        <div
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                          }}
-                        >
-                          <p
-                            className={`trending-title name ${videoParaColor}`}
-                          >
-                            {`${video.views} views`}
-                          </p>
-                          <p
-                            className={`trending-title name li-st ${videoParaColor}`}
-                          >
-                            {distance}
-                          </p>
+                  <li key={video.id}>
+                    <Link
+                      to={`/videos/${video.id}`}
+                      className="link-decoration"
+                    >
+                      <div className="trending-list-container">
+                        <img
+                          alt="thumbnail"
+                          className="trending-thumbnail"
+                          src={video.thumbnail}
+                        />
+                        <div className="trending-video-details">
+                          <img
+                            alt="profile"
+                            className="trending-profile"
+                            src={video.profileImg}
+                          />
+                          <div className="trending-video-flex-para">
+                            <p className={`trending-title ${titleColor}`}>
+                              {video.title}
+                            </p>
+                            <p
+                              className={`trending-title name ${videoParaColor}`}
+                            >
+                              {video.name}
+                            </p>
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                              }}
+                            >
+                              <p
+                                className={`trending-title name ${videoParaColor}`}
+                              >
+                                {`${video.views} views`}
+                              </p>
+                              <p
+                                className={`trending-title name li-st ${videoParaColor}`}
+                              >
+                                {distance}
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   </li>
                 )
               })}

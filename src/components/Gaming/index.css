@@ -26,6 +26,7 @@
 .gaming-video-flex-para {
   display: flex;
   flex-direction: column;
+  color: black;
   padding-right: 1px;
   margin-left: 15px;
 }

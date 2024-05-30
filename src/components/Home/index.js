@@ -3,6 +3,7 @@ import {Component} from 'react'
 import Cookies from 'js-cookie'
 import {FaSearch} from 'react-icons/fa'
 import {formatDistanceToNow} from 'date-fns'
+import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 
 import NxtwatchContext from '../../context/NxtwatchContext'
@@ -90,6 +91,7 @@ class Home extends Component {
       {value => {
         const {darkMode} = value
         const {HomeYtList, searched} = this.state
+
         const zeroListLength = HomeYtList.length === 0
         const mainPartBg = darkMode
           ? 'main-dark-light-bg'
@@ -149,37 +151,46 @@ class Home extends Component {
                   )
                   return (
                     <li className="list-container" key={video.id}>
-                      <img
-                        alt="thumbnail"
-                        className="thumbnail"
-                        src={video.thumbnail}
-                      />
-                      <div className="video-details">
+                      <Link
+                        to={`/videos/${video.id}`}
+                        className="link-decoration"
+                      >
                         <img
-                          alt="profile"
-                          className="profile"
-                          src={video.profileImg}
+                          alt="thumbnail"
+                          className="thumbnail"
+                          src={video.thumbnail}
                         />
-                        <div className="video-flex-para">
-                          <p className={`title ${titleColor}`}>{video.title}</p>
-                          <p className={`title name ${videoParaColor}`}>
-                            {video.name}
-                          </p>
-                          <div
-                            style={{
-                              display: 'flex',
-                              flexDirection: 'row',
-                            }}
-                          >
-                            <p
-                              className={`title name ${videoParaColor}`}
-                            >{`${video.views} views`}</p>
-                            <p className={`title name li-st ${videoParaColor}`}>
-                              {distance}
+                        <div className="video-details">
+                          <img
+                            alt="profile"
+                            className="profile"
+                            src={video.profileImg}
+                          />
+                          <div className="video-flex-para">
+                            <p className={`title ${titleColor}`}>
+                              {video.title}
                             </p>
+                            <p className={`title name ${videoParaColor}`}>
+                              {video.name}
+                            </p>
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                              }}
+                            >
+                              <p
+                                className={`title name ${videoParaColor}`}
+                              >{`${video.views} views`}</p>
+                              <p
+                                className={`title name li-st ${videoParaColor}`}
+                              >
+                                {distance}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     </li>
                   )
                 })}
