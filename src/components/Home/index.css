@@ -10,6 +10,8 @@
   min-width: 200px;
   width: 20%;
   height: 100vh;
+  position: sticky;
+  top: 0;
 }
 .sample {
   display: flex;
@@ -92,6 +94,8 @@
   height: 50px;
   display: flex;
   padding-bottom: 10px;
+  position: sticky;
+  top: 0;
 
   align-items: center;
 }
@@ -248,7 +252,8 @@
 }
 .sm-navbar {
   padding: 10px;
-
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
