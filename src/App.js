@@ -9,12 +9,31 @@ import './App.css'
 import Gaming from './components/Gaming'
 import Trending from './components/Trending'
 import VideoItemDetails from './components/VideoItemDetails'
+import SavedVideos from './components/SavedVideos'
 
 // Replace your code here
 class App extends Component {
   state = {
     darkMode: false,
     premiumDisplay: true,
+    saveBtnClicked: false,
+    savedVideosList: [],
+  }
+
+  onClickSave = video => {
+    this.setState(prevState => ({
+      saveBtnClicked: !prevState.saveBtnClicked,
+    }))
+    console.log(video)
+
+    const {saveBtnClicked} = this.state
+    if (saveBtnClicked) {
+      this.setState(prevState => ({
+        savedVideosList: [...prevState.savedVideosList, video],
+      }))
+      const {savedVideosList} = this.state
+      console.log(savedVideosList)
+    }
   }
 
   closePremium = () => {
@@ -31,15 +50,17 @@ class App extends Component {
   }
 
   render() {
-    const {darkMode, premiumDisplay} = this.state
+    const {darkMode, premiumDisplay, saveBtnClicked} = this.state
 
     return (
       <NxtwatchContext.Provider
         value={{
           darkMode,
           premiumDisplay,
+          saveBtnClicked,
           closePremium: this.closePremium,
           darkModeFunc: this.darkModeFunc,
+          onClickSave: this.onClickSave,
         }}
       >
         <Switch>
@@ -47,6 +68,7 @@ class App extends Component {
           <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute exact path="/gaming" component={Gaming} />
           <ProtectedRoute exact path="/trending" component={Trending} />
+          <ProtectedRoute exact path="/saved-videos" component={SavedVideos} />
           <ProtectedRoute
             exact
             path="/videos/:id"

@@ -101,6 +101,12 @@
   margin-top: 10px;
   margin-right: 10px;
 }
+.like-css {
+  color: #3b82f6 !important;
+}
+.dislike-css {
+  color: #3b82f6 !important;
+}
 
 @media screen and (max-width: 576px) {
   .video-item-arrangement {

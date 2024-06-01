@@ -22,10 +22,26 @@ class VideoItemDetails extends Component {
   state = {
     videoItem: [],
     apiStatus: apiStatusConstants.initial,
+    liked: false,
+    disLiked: false,
   }
 
   componentDidMount() {
     this.videoApiCall()
+  }
+
+  likeFunc = () => {
+    this.setState(prevState => ({
+      liked: !prevState.liked,
+      disLiked: false,
+    }))
+  }
+
+  disLikeFunc = () => {
+    this.setState(prevState => ({
+      disLiked: !prevState.disLiked,
+      liked: false,
+    }))
   }
 
   videoApiCall = async () => {
@@ -87,8 +103,11 @@ class VideoItemDetails extends Component {
   renderSuccessView = () => (
     <NxtWatchContext.Consumer>
       {value => {
-        const {darkMode} = value
-        const {videoItem} = this.state
+        const {darkMode, saveBtnClicked, onClickSave} = value
+        console.log(saveBtnClicked)
+        const {videoItem, liked, disLiked} = this.state
+        const likedCss = liked ? 'like-css' : null
+        const disLikedCss = disLiked ? 'dislike-css' : null
         const mainPartBg = darkMode
           ? 'main-dark-light-bg'
           : 'main-part-light-bg'
@@ -106,6 +125,9 @@ class VideoItemDetails extends Component {
           subscribers,
           description,
         } = videoItem
+        const addToSave = () => {
+          onClickSave({...videoItem})
+        }
         const distance = formatDistanceToNow(new Date(publishedAt))
         const part = distance.split(' ')
         const num = part[1]
@@ -122,15 +144,23 @@ class VideoItemDetails extends Component {
                   <p className="listStyleType">{`${num} years ago`}</p>
                 </div>
                 <div className="likes">
-                  <button className={likeBg} type="button">
+                  <button
+                    onClick={this.likeFunc}
+                    className={`${likeBg} ${likedCss}`}
+                    type="button"
+                  >
                     <BiLike className="like-font-size" />
                     Like
                   </button>
-                  <button className={likeBg} type="button">
+                  <button
+                    onClick={this.disLikeFunc}
+                    className={`${likeBg} ${disLikedCss}`}
+                    type="button"
+                  >
                     <BiDislike className="like-font-size" />
                     Dislike
                   </button>
-                  <button className={likeBg} type="button">
+                  <button onClick={addToSave} className={likeBg} type="button">
                     <RiPlayListAddLine className="like-font-size" />
                     Save
                   </button>
