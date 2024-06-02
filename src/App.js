@@ -10,30 +10,35 @@ import Gaming from './components/Gaming'
 import Trending from './components/Trending'
 import VideoItemDetails from './components/VideoItemDetails'
 import SavedVideos from './components/SavedVideos'
+import {json} from 'stream/consumers'
 
 // Replace your code here
 class App extends Component {
   state = {
     darkMode: false,
     premiumDisplay: true,
-    saveBtnClicked: false,
+
     savedVideosList: [],
   }
 
   onClickSave = video => {
-    this.setState(prevState => ({
-      saveBtnClicked: !prevState.saveBtnClicked,
-    }))
-    console.log(video)
+    this.setState(prevState => {
+      const isAlreadySaved = prevState.savedVideosList.find(
+        savedVideo => savedVideo.id === video.id,
+      )
 
-    const {saveBtnClicked} = this.state
-    if (saveBtnClicked) {
-      this.setState(prevState => ({
+      if (isAlreadySaved) {
+        return {
+          savedVideosList: prevState.savedVideosList.filter(
+            savedVideo => savedVideo.id !== video.id,
+          ),
+        }
+      }
+
+      return {
         savedVideosList: [...prevState.savedVideosList, video],
-      }))
-      const {savedVideosList} = this.state
-      console.log(savedVideosList)
-    }
+      }
+    })
   }
 
   closePremium = () => {
@@ -50,7 +55,12 @@ class App extends Component {
   }
 
   render() {
-    const {darkMode, premiumDisplay, saveBtnClicked} = this.state
+    const {
+      darkMode,
+      premiumDisplay,
+      savedVideosList,
+      saveBtnClicked,
+    } = this.state
 
     return (
       <NxtwatchContext.Provider
@@ -58,6 +68,7 @@ class App extends Component {
           darkMode,
           premiumDisplay,
           saveBtnClicked,
+          savedVideosList,
           closePremium: this.closePremium,
           darkModeFunc: this.darkModeFunc,
           onClickSave: this.onClickSave,

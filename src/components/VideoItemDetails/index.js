@@ -117,8 +117,10 @@ class VideoItemDetails extends Component {
 
         const {
           videoUrl,
+          id,
           title,
           views,
+          thumbnail,
           publishedAt,
           name,
           profileImg,
