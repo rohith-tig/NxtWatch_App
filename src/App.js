@@ -10,7 +10,6 @@ import Gaming from './components/Gaming'
 import Trending from './components/Trending'
 import VideoItemDetails from './components/VideoItemDetails'
 import SavedVideos from './components/SavedVideos'
-import {json} from 'stream/consumers'
 
 // Replace your code here
 class App extends Component {
@@ -18,7 +17,12 @@ class App extends Component {
     darkMode: false,
     premiumDisplay: true,
 
-    savedVideosList: [],
+    savedVideosList: JSON.parse(localStorage.getItem('savedVideosList')),
+  }
+
+  setToLocalStorage = () => {
+    const {savedVideosList} = this.state
+    localStorage.setItem('savedVideosList', JSON.stringify(savedVideosList))
   }
 
   onClickSave = video => {
@@ -38,7 +42,7 @@ class App extends Component {
       return {
         savedVideosList: [...prevState.savedVideosList, video],
       }
-    })
+    }, this.setToLocalStorage)
   }
 
   closePremium = () => {
