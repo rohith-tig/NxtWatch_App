@@ -103,7 +103,7 @@ class VideoItemDetails extends Component {
   renderSuccessView = () => (
     <NxtWatchContext.Consumer>
       {value => {
-        const {darkMode, saveBtnClicked, onClickSave} = value
+        const {darkMode, saveBtnClicked, onClickSave, savedVideosList} = value
         console.log(saveBtnClicked)
         const {videoItem, liked, disLiked} = this.state
         const likedCss = liked ? 'like-css' : null
@@ -117,16 +117,20 @@ class VideoItemDetails extends Component {
 
         const {
           videoUrl,
-
+          id,
           title,
           views,
-
           publishedAt,
           name,
           profileImg,
           subscribers,
           description,
         } = videoItem
+
+        const isSaved = savedVideosList.find(savedVideo => savedVideo.id === id)
+        const saveCss = isSaved ? 'like-css' : null
+
+        console.log(isSaved)
         const addToSave = () => {
           onClickSave({...videoItem})
         }
@@ -162,9 +166,13 @@ class VideoItemDetails extends Component {
                     <BiDislike className="like-font-size" />
                     Dislike
                   </button>
-                  <button onClick={addToSave} className={likeBg} type="button">
+                  <button
+                    onClick={addToSave}
+                    className={`${likeBg} ${saveCss}`}
+                    type="button"
+                  >
                     <RiPlayListAddLine className="like-font-size" />
-                    Save
+                    {isSaved ? 'saved' : 'save'}
                   </button>
                 </div>
               </div>

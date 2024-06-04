@@ -11,6 +11,8 @@ const Navbar = props => {
     const {history} = props
     Cookies.remove('jwt_token')
     history.replace('/login')
+
+    localStorage.removeItem('savedVideosList')
   }
   return (
     <NxtwatchContext.Consumer>

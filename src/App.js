@@ -17,7 +17,7 @@ class App extends Component {
     darkMode: false,
     premiumDisplay: true,
 
-    savedVideosList: JSON.parse(localStorage.getItem('savedVideosList')),
+    savedVideosList: JSON.parse(localStorage.getItem('savedVideosList')) || [],
   }
 
   setToLocalStorage = () => {
